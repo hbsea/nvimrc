@@ -1,20 +1,16 @@
 vim.g.mapleader = ","
 vim.g.maplocalleader = ","
 
-vim.schedule(function()
-  vim.o.clipboard = 'unnamedplus'
-end)
-
 -- =>FILE
 -- fast save file
 vim.keymap.set('n', '<leader>w', '<cmd>write!<CR>', { desc = 'Edit my configs' })
 -- fast edit config
 vim.keymap.set('n', '<leader>e', '<cmd>edit ~/.config/nvim/init.lua<CR>', { desc = 'Edit my configs' })
 vim.keymap.set('n', '<leader>ee', function()
-    local file = vim.fn.input('Edit file:','~/.config/nvim/lua/plugins/','file') 
+    local file = vim.fn.input('Edit file:','~/.config/nvim/lua/plugins/','file')
     local stat = vim.loop.fs_stat(vim.fn.expand(file))
-    if stat and stat.type == 'file' then 
-        vim.cmd('edit ' .. file) 
+    if stat and stat.type == 'file' then
+        vim.cmd('edit ' .. file)
     end
     end, { desc = 'Edit my configs' })
 
@@ -65,6 +61,16 @@ vim.o.tabstop = 4
 vim.o.shiftwidth = 4
 -- Enable break indent
 vim.o.breakindent = true
+-- comment a line
+local line_rhs = function()
+  return require('vim._comment').operator() .. '_'
+end
+vim.keymap.set("n", "<C-/>", line_rhs,{ expr = true, desc = 'Toggle comment line' })
+vim.keymap.set("n", "<Esc>j", "mz:m+<CR>`z", { noremap = true, silent = true })
+vim.keymap.set("n", "<Esc>k","mz:m-2<CR>`z", { noremap = true, silent = true })
+vim.keymap.set("v", "<Esc>j",":m '>+<CR>`<my`>mzgv`yo`z", { noremap = true, silent = true })
+vim.keymap.set("v", "<Esc>k",":m '<-2<CR>`>my`<mzgv`yo`z", { noremap = true, silent = true })
+
 
 -- =>SEARCH
 -- case-insensitive searching UNLESS \C or one or more capital letters in the search term
@@ -75,15 +81,22 @@ vim.keymap.set("n", "<leader><CR>", "<cmd>noh<CR>", { desc = "general clear high
 -- =>PLUGINS
 require("config.lazy")
 require("config.dap_watches")
--- theme
-vim.cmd[[colorscheme tokyonight-night]]
+require("config.lsp")
 -- nvim-tree
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
-vim.opt.termguicolors = true
 -- lsp
 vim.lsp.enable("clangd")
 vim.lsp.enable("lua_ls")
+vim.lsp.config('*', {
+capabilities = {
+  textDocument = {
+    semanticTokens = {
+      multilineTokenSupport = true,
+    }
+  }
+},
+root_markers = { '.git' },
+})
+
 
 -- dap
 -- vim.fn.sign_define("DapBreakpoint", { text = "🔴" })

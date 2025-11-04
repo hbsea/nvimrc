@@ -10,12 +10,13 @@ return {
         require("nvim-treesitter.configs").setup {
             indent = { enable = true },
             highlight = { enable = true },
+            autotage = { enable = true },
             textobjects = {
                 select = {
                     enable = true,
                     -- Automatically jump forward to textobj, similar to targets.vim 
-                    lookahead = true, 
-                    keymaps = { 
+                    lookahead = true,
+                    keymaps = {
                         ["ia"] = "@assignment.inner",
                         ["asl"] = "@assignment.lhs",
                         ["aas"] = "@assignment.outer",
@@ -117,7 +118,7 @@ return {
                 swap_previous = {
                     ["<leader>A"] = "@parameter.inner",
                 },
-            }, 
+            },
             lsp_interop = {
               enable = true,
               border = 'none',
