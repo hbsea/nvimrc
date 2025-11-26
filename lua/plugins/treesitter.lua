@@ -7,10 +7,22 @@ return {
         "nvim-treesitter/nvim-treesitter-textobjects",
     },
     config = function()
-        require("nvim-treesitter.configs").setup {
+        require("nvim-treesitter.configs").setup({
+            ensure_installed = {"c", "lua", "vim", "vimdoc", "query"},
+            auto_install = true,
             indent = { enable = true },
             highlight = { enable = true },
-            autotage = { enable = true },
+            incremental_selection = {
+                enable = true,
+                keymaps = {
+                    init_selection = '<leader>ss',
+                    node_incremental = '<leader>si',
+                    scope_incremental = '<leader>sc',
+                    node_decremental = '<leader>sd',
+                },
+            },
+
+            autotag = { enable = true },
             textobjects = {
                 select = {
                     enable = true,
@@ -23,8 +35,8 @@ return {
                         ["asr"] = "@assignment.rhs",
                         ["iat"] = "@attribute.inner",
                         ["aat"] = "@attribute.outer",
-                        ["ib"] = "@block.inner",
-                        ["ab"] = "@block.outer",
+                        ["ik"] = "@block.inner",
+                        ["ak"] = "@block.outer",
                         ["ic"] = "@call.inner",
                         ["ac"] = "@call.outer",
                         ["icl"] = "@class.inner",
@@ -58,7 +70,7 @@ return {
                     -- mapping query_strings to modes.
                     selection_modes = {
                       ['@parameter.outer'] = 'v', -- charwise
-                      ['@function.outer'] = 'V', -- linewise
+                      ['@function.outer'] = 'v', -- linewise
                       ['@class.outer'] = '<c-v>', -- blockwise
                     },
                     -- If you set this to `true` (default is `false`) then any textobject is
@@ -104,10 +116,10 @@ return {
               -- Use if you want more granular movements
               -- Make it even more gradual by adding multiple queries and regex.
               goto_next = {
-                ["]d"] = "@conditional.outer",
+                ["]f"] = "@conditional.outer",
               },
               goto_previous = {
-                ["[d"] = "@conditional.outer",
+                ["[f"] = "@conditional.outer",
               }
             },
             swap = {
@@ -129,7 +141,7 @@ return {
               },
             },
         },
-    }
+    })
         local ts_repeat_move = require "nvim-treesitter.textobjects.repeatable_move"
 
         -- Repeat movement with ; and ,
