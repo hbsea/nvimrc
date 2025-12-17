@@ -8,47 +8,45 @@ return {
     opts = {},
 
     keys = {
-        { "<leader>du", function()
-            vim.cmd("NvimTreeClose")
-            require("dapui").toggle()
-            vim.cmd("wincmd p")
-        end, desc = "toggle dap-ui", },
-        { "<leader>db", function() require("persistent-breakpoints.api").toggle_breakpoint() end, desc = "Debug: toggle break(mark)", },
-        { "<F10>", function() require("dap").step_into({ granularity = "instruction" }) end, desc = "Debug: step into", },
-        { "<F6>", function() require("dap").step_out() end, desc = "Step Out" },
-        { "<F11>", function() require("dap").step_over() end, desc = "Debug: step over", },
-        { "<leader>dq", function() require("dap").terminate() end, desc = "Debug: terminate", },
-        { "<F5>", function() require("dap").continue() end,desc = "Dap continue",},
-        { "<leader>b", function()
-            vim.cmd("NvimTreeClose")
-            vim.cmd("botright 8split")
-            local cmd = [[bash -c 'cmake --build build --target clean && cmake --build build --target run-qemu && qemu-system-aarch64 -M raspi4b -S -s -nographic -kernel build/kernel8.img']]
-            vim.cmd("terminal " .. cmd)
-            vim.cmd("normal! G")
-            vim.cmd("wincmd p")
-            require("dapui").open()
-            vim.defer_fn(function ()
-                require("dap").continue()
-            end,1000)
-
-        end, desc = "Build Task",
-        },
+        -- { "<leader>du", function()
+        --     vim.cmd("NvimTreeClose")
+        --     require("dapui").toggle()
+        --     vim.cmd("wincmd p")
+        -- end, desc = "toggle dap-ui", },
+        -- { "<leader>db", function() require("persistent-breakpoints.api").toggle_breakpoint() end, desc = "Debug: toggle break(mark)", },
+        -- { "<F10>", function() require("dap").step_into({ granularity = "instruction" }) end, desc = "Debug: step into", },
+        -- { "<F6>", function() require("dap").step_out() end, desc = "Step Out" },
+        -- { "<F11>", function() require("dap").step_over() end, desc = "Debug: step over", },
+        -- { "<leader>dq", function() require("dap").terminate() end, desc = "Debug: terminate", },
+        -- { "<F5>", function() require("dap").continue() end,desc = "Dap continue",},
+        -- { "<leader>b", function()
+        --     vim.cmd("silent make")
+        --     vim.cmd("NvimTreeClose")
+        --     vim.cmd("botright 48vsplit")
+        --     local cmd = [[bash -c 'qemu-system-aarch64 -M raspi4b -S -s -nographic -kernel build/kernel8.img']]
+        --     vim.cmd("terminal " .. cmd)
+        --     vim.cmd("normal! G")
+        --     vim.cmd("wincmd p")
+        --     vim.cmd("botright 8split")
+        --     local cmdlldb=[[bash -c 'lldb']]
+        --     vim.cmd("terminal " .. cmdlldb)
+        --     -- require("dapui").open()
+        --     -- require("dap").continue()
+        -- end, desc = "Build Task",
+        -- },
     },
 
     config = function()
         local dap = require 'dap'
         local dapui = require 'dapui'
+        local saved_buf = nil
+        dap.listeners.before.event_initialized.save_current_buf = function()
+            saved_buf = vim.api.nvim_get_current_buf()
+        end
         dap.listeners.before.event_exited.dapui_config = function()
             dapui.close()
-            local first_buf = nil
-            for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-                if vim.api.nvim_buf_is_loaded(buf) and vim.bo[buf].buflisted and vim.bo[buf].buftype == "" then
-                    first_buf = buf
-                    break
-                end
-            end
-            if first_buf then
-                vim.api.nvim_set_current_buf(first_buf)
+            if saved_buf and vim.api.nvim_buf_is_valid(saved_buf) then
+                vim.api.nvim_set_current_buf(saved_buf)
             end
             for _, buf in ipairs(vim.api.nvim_list_bufs()) do
                 local name = vim.api.nvim_buf_get_name(buf)
@@ -64,7 +62,7 @@ return {
             end
             vim.cmd("only")
             vim.defer_fn(function()
-                if not pcall(vim.cmd, "NvimTreeOpen") then
+                if not pcall(vim.cmd.NvimTreeOpen) then
                     vim.cmd("NvimTreeToggle")
                 end
                 vim.cmd("wincmd p")
@@ -101,7 +99,7 @@ return {
         dap.configurations.lua=dap.configurations.c
         dap.configurations.cpp=dap.configurations.c
 
-        dapui.setup {
+        dapui.setup({
             icons = { expanded = '▾', collapsed = '▸', current_frame = '*' },
             layouts = { {
                 elements = { {
@@ -131,7 +129,7 @@ return {
                 --   position = "bottom",
                 --   size = 12
             } },
-        }
+        })
 
 
     end

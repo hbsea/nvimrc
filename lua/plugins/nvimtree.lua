@@ -11,7 +11,7 @@ return {
                 dotfiles = true,
             },
         view = {
-                -- width = 20,
+                width = math.floor(vim.o.columns / 11),
             },
         update_focused_file = {
             enable = true,
