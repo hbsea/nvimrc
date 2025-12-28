@@ -5,13 +5,18 @@ return {
     keys = {
         {
             "<leader>xx",
-            "<cmd>Trouble diagnostics toggle<cr>",
-            desc = "Diagnostics (Trouble)",
-        },
-        {
-            "<leader>xQ",
             "<cmd>Trouble qflist toggle<cr>",
             desc = "Quickfix List (Trouble)",
+        },
+        {
+            "<leader>xn",
+            "<cmd>Trouble qflist next<cr><cmd>Trouble qflist jump<cr>",
+            desc = "Quickfix Next (Trouble)",
+        },
+        {
+            "<leader>xp",
+            "<cmd>Trouble qflist prev<cr><cmd>Trouble qflist jump<cr>",
+            desc = "Quickfix Prev (Trouble)",
         },
     },
 }

@@ -307,7 +307,7 @@ return {
         vim.keymap.set({ "n", "x", "o" }, "t", ts_repeat_move.builtin_t_expr, { expr = true })
         vim.keymap.set({ "n", "x", "o" }, "T", ts_repeat_move.builtin_T_expr, { expr = true })
 
-        vim.keymap.set("n", "gd", function () vim.api.nvim_input("]ac") vim.defer_fn(function() require("fzf-lua").lsp_definitions() end, 10)  end, { desc = "Go to definition" })
+        vim.keymap.set("n", "gd", function () vim.api.nvim_input("tac") vim.defer_fn(function() require("fzf-lua").lsp_definitions() end, 10)  end, { desc = "Go to definition" })
         vim.keymap.set("n", "gs", function () require("fzf-lua").lsp_definitions() end, { desc = "Go to definition" })
     end,
 }

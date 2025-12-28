@@ -84,7 +84,7 @@ vim.keymap.set("n", "<leader>b", function()
     -- vim.cmd("NvimTreeClose")
     vim.cmd("botright vsplit")
     vim.cmd("vertical resize " .. math.floor(vim.o.columns / 2.5))
-    local cmd = [[bash -c 'qemu-system-aarch64 -M raspi4b -S -s -nographic -kernel build/kernel8.img']]
+    local cmd = [[bash -c 'qemu-system-aarch64 -M raspi4b -S -s -nographic -kernel build/kernel8.img  -drive  id=sd-card,if=none,format=raw,file=build/fs.img -device sd-card,drive=sd-card,bus=sd-bus']]
     vim.cmd("terminal " .. cmd)
     vim.cmd("normal! G")
     vim.cmd("wincmd p")
