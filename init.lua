@@ -3,7 +3,7 @@ vim.g.maplocalleader = ","
 
 
 -- vim.opt.makeprg = "sh -c 'cmake --build build --target clean && cmake --build build --target run-qemu'"
-vim.opt.makeprg = "bear -- make"
+vim.opt.makeprg = "bear -- make -j8"
 vim.opt.errorformat = "%f:%l:%c: %trror: %m"
 
 vim.opt.mouse = "a"

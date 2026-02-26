@@ -12,6 +12,7 @@ bind -n F12 if -F '#{==:#{@keys_disabled},1}' \
 set -g default-terminal "tmux-256color"
 set -ga terminal-overrides ",xterm-kitty:Tc"
 set -g mouse on
+set -g set-clipboard on
 set -g allow-passthrough on
 EOF
 
