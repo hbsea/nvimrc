@@ -13,12 +13,14 @@ return {
         })
     end
     },{
-    "craftzdog/solarized-osaka.nvim",
+    "folke/tokyonight.nvim",
+    -- "craftzdog/solarized-osaka.nvim",
     lazy = false,
     priority = 1000,
     opts = {},
     config = function()
-        vim.cmd.colorscheme("solarized-osaka")
+        vim.cmd.colorscheme("tokyonight")
+        -- vim.cmd.colorscheme("solarized-osaka")
         vim.api.nvim_set_hl(0, "Include", { fg = "#859900" })
         vim.api.nvim_set_hl(0, "LineNr", { fg = "#586e75"})
         vim.api.nvim_set_hl(0, "CursorLineNr", { fg = "#8ad1ca", bold = true})
