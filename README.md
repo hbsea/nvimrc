@@ -35,6 +35,7 @@ map cmd+c copy_or_noop
 map ctrl+cmd+, load_config_file
 map cmd+n new_os_window
 map cmd+, edit_config_file
+clipboard_control write-clipboard write-primary no-append
 ```
 
 # ~/.bashrc
