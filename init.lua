@@ -123,6 +123,18 @@ require("config.dap_watches")
 -- nvim-tree
 -- treesitter
 -- lsp
+vim.lsp.enable("clangd")
+-- vim.lsp.enable("lua_ls")
+vim.lsp.config('*', {
+capabilities = {
+  textDocument = {
+    semanticTokens = {
+      multilineTokenSupport = true,
+    }
+  }
+},
+root_markers = { '.git' },
+})
 -- dap
 -- lint
 -- c lint and format is use clangd ,clang-format by the  lsp server default, vim.lsp.buf.format()

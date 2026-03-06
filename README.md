@@ -17,14 +17,15 @@ set -g set-clipboard on
 set -g allow-passthrough on
 set -g status off
 EOF
-```
-tmux source-file ~/.tmux.conf
 
+//tmux source-file ~/.tmux.conf
+```
 
 # ~/.config/kitty/kitty.conf
-# kitty +list-fonts
-# kitty +kitten themes
 ```
+// kitty +list-fonts
+// kitty +kitten themes
+
 font_size 16.0
 macos_option_as_alt yes
 clear_all_shortcuts yes
@@ -37,10 +38,24 @@ map cmd+, edit_config_file
 ```
 
 # ~/.bashrc
-#  1. 禁用终端驱动对 Ctrl+W 的默认捕获
+```
+// 1. 禁用终端驱动对 Ctrl+W 的默认捕获
 stty werase undef
 
-# 2. 将 Ctrl+W 绑定到识别斜杠的删除动作
+// 2. 将 Ctrl+W 绑定到识别斜杠的删除动作
 bind '\C-w: unix-filename-rubout'
 
+```
 
+# ~/.zshrc
+
+```
+// 1.install oh-my-zsh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+// 2.plugins
+git clone https://github.com/marlonrichert/zsh-autocomplete ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autocomplete
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+// 3.enable in zshrc
+plugins=(git zsh-autocomplete zsh-autosuggestions)
+
+```
