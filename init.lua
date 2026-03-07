@@ -10,6 +10,18 @@ vim.opt.mouse = "a"
 vim.opt.ttyfast = true
 vim.opt.lazyredraw = false
 vim.opt.clipboard = "unnamedplus"
+vim.g.clipboard = {
+  name = 'OSC 52',
+  copy = {
+    ['+'] = require('vim.ui.clipboard.osc52').copy '+',
+    ['*'] = require('vim.ui.clipboard.osc52').copy '*',
+  },
+  paste = {
+    ['+'] = require('vim.ui.clipboard.osc52').paste '+',
+    ['*'] = require('vim.ui.clipboard.osc52').paste '*',
+  },
+}
+
 vim.opt.inccommand = "split"
 vim.opt.termguicolors = true
 -- case-insensitive searching UNLESS \C or one or more capital letters in the search term
