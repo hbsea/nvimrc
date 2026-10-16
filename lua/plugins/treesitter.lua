@@ -5,10 +5,11 @@ return {
     build = ":TSUpdate",
     dependencies = {
         "nvim-treesitter/nvim-treesitter-textobjects",
+        "windwp/nvim-ts-autotag",
     },
     config = function()
         require("nvim-treesitter.configs").setup({
-            ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline" },
+            ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline", "json5", "nix" },
             auto_install = true,
             indent = { enable = true },
             highlight = { enable = true },
