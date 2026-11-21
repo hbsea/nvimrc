@@ -1,5 +1,5 @@
 vim.g.mapleader = ","
-vim.g.maplocalleader = ","
+vim.g.maplocalleader = "\\"
 
 
 -- vim.opt.makeprg = "sh -c 'cmake --build build --target clean && cmake --build build --target run-qemu'"

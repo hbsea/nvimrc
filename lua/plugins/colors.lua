@@ -1,13 +1,5 @@
 return {
     {
-  "daaanny90/zed.nvim",
-  lazy = false,
-  priority = 1000,
-  config = function()
-    vim.cmd.colorscheme("zed-one-dark")
-  end,
-},
-    {
     'nvim-lualine/lualine.nvim',
     config = function()
         vim.g.loaded_netrw = 1
@@ -21,13 +13,15 @@ return {
         })
     end
     },{
+    -- "daaanny90/zed.nvim",
     "folke/tokyonight.nvim",
     -- "craftzdog/solarized-osaka.nvim",
     lazy = false,
     priority = 1000,
     opts = {},
     config = function()
-        -- vim.cmd.colorscheme("tokyonight")
+        -- vim.cmd.colorscheme("zed-one-dark")
+        vim.cmd.colorscheme("tokyonight")
         -- vim.cmd.colorscheme("solarized-osaka")
         vim.api.nvim_set_hl(0, "Include", { fg = "#859900" })
         vim.api.nvim_set_hl(0, "LineNr", { fg = "#586e75"})
