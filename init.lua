@@ -56,7 +56,7 @@ vim.opt.path:append { "**" }
 
 
 -- fast save file
-vim.keymap.set('n', '<leader>w', '<cmd>write!<CR>', { desc = 'Edit my configs' })
+vim.keymap.set('n', '<leader>w', '<cmd>write!<CR>', { desc = 'Save file' })
 -- fast edit config
 vim.keymap.set('n', '<leader>e', '<cmd>edit ~/.config/nvim/init.lua<CR>', { desc = 'Edit my configs' })
 vim.keymap.set('n', '<leader>ee', function()
@@ -66,7 +66,7 @@ vim.keymap.set('n', '<leader>ee', function()
     if stat and stat.type == 'file' then
         vim.cmd('edit ' .. file)
     end
-end, { desc = 'Edit my configs' })
+end, { desc = 'Edit my plugins configs' })
 
 -- fast move in c mode
 vim.keymap.set('c', '<C-a>', '<Home>', { desc = 'Go to beginning of command line' })
@@ -95,7 +95,7 @@ vim.keymap.set("n", "<leader>b", function()
     vim.cmd("make")
     -- vim.cmd("NvimTreeClose")
     vim.cmd("botright vsplit")
-    vim.cmd("vertical resize " .. math.floor(vim.o.columns / 2.5))
+    vim.cmd("vertical resize " .. math.floor(vim.o.columns / 6.34))
     local cmd = [[bash -c 'qemu-system-aarch64 -M raspi4b -S -s -nographic -kernel build/kernel8.img  -drive  id=sd-card,if=none,format=raw,file=build/fs.img -device sd-card,drive=sd-card,bus=sd-bus']]
     vim.cmd("terminal " .. cmd)
     vim.cmd("normal! G")
@@ -135,8 +135,7 @@ require("config.dap_watches")
 -- nvim-tree
 -- treesitter
 -- lsp
-vim.lsp.enable("clangd")
--- vim.lsp.enable("lua_ls")
+vim.lsp.enable({"clangd", "lua_ls", "pyright", "jsonls","gopls","rust_analyzer"})
 vim.lsp.config('*', {
 capabilities = {
   textDocument = {
